@@ -3439,12 +3439,17 @@ define('skylark-langx-events/Listener',[
                 }
 
                 var listeningEvents = listening.events;
+
                 for (var eventName in listeningEvents) {
                     if (event && event != eventName) {
                         continue;
                     }
 
                     var listeningEvent = listeningEvents[eventName];
+
+                    if (!listeningEvent) { 
+                        continue;
+                    }
 
                     for (var j = 0; j < listeningEvent.length; j++) {
                         if (!callback || callback == listeningEvent[i]) {
@@ -3640,6 +3645,10 @@ define('skylark-langx-events/Emitter',[
         },
 
         off: function(events, callback) {
+            if (!events) {
+              this._hub = null;
+              return;
+            }
             var _hub = this._hub || (this._hub = {});
             if (isString(events)) {
                 events = events.split(/\s/)
@@ -10786,10 +10795,21 @@ define('skylark-domx-browser/support/fullscreen',[
 
     return browser.support.fullscreen;
 });
+define('skylark-domx-browser/support/touch',[
+	"../browser"
+],function(browser){
+
+    function supportTouch() {
+        return !!('ontouchstart' in window || window.DocumentTouch && document instanceof window.DocumentTouch);
+    }
+
+    return browser.support.tocuh = supportTouch();
+});
 define('skylark-domx-browser/main',[
 	"./browser",
 	"./support/css3",
-	"./support/fullscreen"
+	"./support/fullscreen",
+	"./support/touch"
 ],function(browser){
 	return browser;
 });
@@ -11111,7 +11131,7 @@ function removeSelfClosingTags(xml) {
         if (el === false) {
             return browser.exitFullscreen.apply(document);
         } else if (el) {
-            return browser.requestFullscreen.apply(el);
+            return el[browser.support.fullscreen.requestFullscreen]();
             fulledEl = el;
         } else {
             return (
@@ -15418,8 +15438,8 @@ define('skylark-domx-eventer/eventer',[
      * @param {Anything Optional} data
      * @param {Function} callback
      */
-    function one(elm, events, selector, data, callback) {
-        on(elm, events, selector, data, callback, 1);
+    function one(...args) {
+        on(...args, true);
 
         return this;
     }
@@ -15768,7 +15788,11 @@ define('skylark-domx-geom/geom',[
         return (cachedScrollbarWidth = w1 - w2);
     }
 
-    
+
+    function hasScrollbar() {
+        return document.body.scrollHeight > (window.innerHeight || document.documentElement.clientHeight);
+    }
+
     /*
      * Get the widths of each border of the specified element.
      * @param {HTMLElement} elm
@@ -16121,14 +16145,21 @@ define('skylark-domx-geom/geom',[
                 left: offset.left - parentOffset.left - pbex.left - mex.left
             }
         } else {
+            var // Get *real* offsetParent
+                parent = offsetParent(elm);
+
             var props = {
-                top: coords.top,
-                left: coords.left
+                top: coords.top + (scrollTop(parent) || 0),
+                left: coords.left + (scrollLeft(parent) || 0)
             }
+
+
 
             if (styler.css(elm, "position") == "static") {
                 props['position'] = "relative";
             }
+
+
             styler.css(elm, props);
             return this;
         }
@@ -16213,6 +16244,8 @@ define('skylark-domx-geom/geom',[
     function scrollLeft(elm, value) {
         if (elm.nodeType === 9) {
             elm = elm.defaultView;
+        } else if (elm == document.body) {
+            elm = document.scrollingElement  || document.documentElement;
         }
         var hasScrollLeft = "scrollLeft" in elm;
         if (value === undefined) {
@@ -16234,7 +16267,10 @@ define('skylark-domx-geom/geom',[
     function scrollTop(elm, value) {
         if (elm.nodeType === 9) {
             elm = elm.defaultView;
+        } else if (elm == document.body) {
+            elm = document.scrollingElement  || document.documentElement;
         }
+
         var hasScrollTop = "scrollTop" in elm;
 
         if (value === undefined) {
@@ -16372,6 +16408,8 @@ define('skylark-domx-geom/geom',[
         contentRect: contentRect,
 
         getDocumentSize: getDocumentSize,
+
+        hasScrollbar,
 
         height: height,
 
@@ -17300,9 +17338,10 @@ define('skylark-domx-fx/bounce',[
 });
 define('skylark-domx-fx/emulateTransitionEnd',[
     "skylark-langx/langx",
+    "skylark-domx-browser",
     "skylark-domx-eventer",
     "./fx"
-],function(langx,eventer,fx) {
+],function(langx,browser,eventer,fx) {
     
     function emulateTransitionEnd(elm,duration) {
         var called = false;
@@ -18163,7 +18202,7 @@ define('skylark-domx-fx/main',[
 });
 define('skylark-domx-fx', ['skylark-domx-fx/main'], function (main) { return main; });
 
-define('skylark-domx-plugins/plugins',[
+define('skylark-domx-plugins-base/plugins',[
     "skylark-langx-ns",
     "skylark-langx-types",
     "skylark-langx-objects",
@@ -18532,18 +18571,18 @@ define('skylark-domx-plugins/plugins',[
 
     return  skylark.attach("domx.plugins",plugins);
 });
-define('skylark-domx-plugins/main',[
+define('skylark-domx-plugins-base/main',[
 	"./plugins"
 ],function(plugins){
 	return plugins;
 });
-define('skylark-domx-plugins', ['skylark-domx-plugins/main'], function (main) { return main; });
+define('skylark-domx-plugins-base', ['skylark-domx-plugins-base/main'], function (main) { return main; });
 
 define('skylark-domx-plugins-gallery/Gallery',[
 	"skylark-langx/skylark",
 	"skylark-langx/langx",
 	"skylark-domx-noder",
-	"skylark-domx-plugins"
+	"skylark-domx-plugins-base"
 ], function (skylark,langx,noder,plugins) {
 	var registry = {
 		views: [],

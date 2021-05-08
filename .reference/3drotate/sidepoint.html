@@ -1,0 +1,291 @@
+<!--https://www.sitepoint.com/building-3d-rotating-carousel-css-javascript/-->
+
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+
+  <meta charset="UTF-8">
+  
+<link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+<meta name="apple-mobile-web-app-title" content="CodePen">
+
+<link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+<link rel="mask-icon" type="" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+
+  <title>CodePen - 3D Rotating Carousel with CSS and JavaScript</title>
+  
+  
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+  
+<style>
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 1.5em;
+}
+
+h2 {
+  text-align: center;
+  color: #555;
+  margin-bottom: 0;
+}
+
+.carousel {
+  padding: 20px;
+  perspective: 500px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.carousel > * {
+  flex: 0 0 auto;
+}
+.carousel figure {
+  margin: 0;
+  width: 40%;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+.carousel figure img {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 0px;
+}
+.carousel figure img:not(:first-of-type) {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.carousel nav {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 0;
+}
+.carousel nav button {
+  flex: 0 0 auto;
+  margin: 0 5px;
+  cursor: pointer;
+  color: #333;
+  background: none;
+  border: 1px solid;
+  letter-spacing: 1px;
+  padding: 5px 10px;
+}
+</style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+  <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+
+</head>
+
+<body translate="no" >
+  <h1>3D Rotating Carousel Examples</h1>
+
+<h2>Three images</h2>
+<div class="carousel">
+	<figure>
+		<img src="https://source.unsplash.com/EbuaKnSm8Zw/800x533" alt="">
+		<img src="https://source.unsplash.com/kG38b7CFzTY/800x533" alt="">
+		<img src="https://source.unsplash.com/nvzvOPQW0gc/800x533" alt="">
+	</figure>
+	<nav>
+		<button class="nav prev">Prev</button>
+		<button class="nav next">Next</button>
+	</nav>
+</div>
+
+<h2>Four images</h2>
+<div class="carousel">
+	<figure>
+    <img src="https://source.unsplash.com/kG38b7CFzTY/800x533" alt="">
+		<img src="https://source.unsplash.com/EbuaKnSm8Zw/800x533" alt="">
+		<img src="https://source.unsplash.com/nvzvOPQW0gc/800x533" alt="">
+		<img src="https://source.unsplash.com/mCg0ZgD7BgU/800x533" alt="">
+	</figure>
+	<nav>
+		<button class="nav prev">Prev</button>
+		<button class="nav next">Next</button>
+	</nav>
+</div>
+
+<h2>Eight images</h2>
+<div class="carousel">
+	<figure>
+    <img src="https://source.unsplash.com/nvzvOPQW0gc/800x533" alt="">
+		<img src="https://source.unsplash.com/EbuaKnSm8Zw/800x533" alt="">
+		<img src="https://source.unsplash.com/kG38b7CFzTY/800x533" alt="">
+		<img src="https://source.unsplash.com/mCg0ZgD7BgU/800x533" alt="">
+		<img src="https://source.unsplash.com/VkwRmha1_tI/800x533" alt="">
+		<img src="https://source.unsplash.com/1FWICvPQdkY/800x533" alt="">
+		<img src="https://source.unsplash.com/bjhrzvzZeq4/800x533" alt="">
+		<img src="https://source.unsplash.com/7mUXaBBrhoA/800x533" alt="">
+	</figure>
+	<nav>
+		<button class="nav prev">Prev</button>
+		<button class="nav next">Next</button>
+	</nav>
+</div>
+
+<h2>Eight images, with 20px gap</h2>
+<div class="carousel" data-gap="20">
+	<figure>
+    <img src="https://source.unsplash.com/mCg0ZgD7BgU/800x533" alt="">
+		<img src="https://source.unsplash.com/EbuaKnSm8Zw/800x533" alt="">
+		<img src="https://source.unsplash.com/kG38b7CFzTY/800x533" alt="">
+		<img src="https://source.unsplash.com/nvzvOPQW0gc/800x533" alt="">
+		<img src="https://source.unsplash.com/VkwRmha1_tI/800x533" alt="">
+		<img src="https://source.unsplash.com/1FWICvPQdkY/800x533" alt="">
+		<img src="https://source.unsplash.com/bjhrzvzZeq4/800x533" alt="">
+		<img src="https://source.unsplash.com/7mUXaBBrhoA/800x533" alt="">
+	</figure>
+	<nav>
+		<button class="nav prev">Prev</button>
+		<button class="nav next">Next</button>
+	</nav>
+</div>
+
+<h2>Eight images, with 80px gap</h2>
+<div class="carousel" data-gap="80">
+	<figure>
+    <img src="https://source.unsplash.com/VkwRmha1_tI/800x533" alt="">
+		<img src="https://source.unsplash.com/EbuaKnSm8Zw/800x533" alt="">
+		<img src="https://source.unsplash.com/kG38b7CFzTY/800x533" alt="">
+		<img src="https://source.unsplash.com/nvzvOPQW0gc/800x533" alt="">
+		<img src="https://source.unsplash.com/mCg0ZgD7BgU/800x533" alt="">
+		<img src="https://source.unsplash.com/1FWICvPQdkY/800x533" alt="">
+		<img src="https://source.unsplash.com/bjhrzvzZeq4/800x533" alt="">
+		<img src="https://source.unsplash.com/7mUXaBBrhoA/800x533" alt="">
+	</figure>
+	<nav>
+		<button class="nav prev">Prev</button>
+		<button class="nav next">Next</button>
+	</nav>
+</div>
+
+<h2>Hidden backfaces</h2>
+<div class="carousel" data-gap="20" data-bfc>
+	<figure>
+    <img src="https://source.unsplash.com/bjhrzvzZeq4/800x533" alt="">
+		<img src="https://source.unsplash.com/EbuaKnSm8Zw/800x533" alt="">
+		<img src="https://source.unsplash.com/kG38b7CFzTY/800x533" alt="">
+		<img src="https://source.unsplash.com/nvzvOPQW0gc/800x533" alt="">
+		<img src="https://source.unsplash.com/mCg0ZgD7BgU/800x533" alt="">
+		<img src="https://source.unsplash.com/VkwRmha1_tI/800x533" alt="">
+		<img src="https://source.unsplash.com/1FWICvPQdkY/800x533" alt="">
+		<img src="https://source.unsplash.com/7mUXaBBrhoA/800x533" alt="">
+	</figure>
+	<nav>
+		<button class="nav prev">Prev</button>
+		<button class="nav next">Next</button>
+	</nav>
+</div>
+    <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+
+  
+      <script id="rendered-js" >
+window.addEventListener('load', () => {
+  var
+  carousels = document.querySelectorAll('.carousel');
+
+
+  for (var i = 0; i < carousels.length; i++) {if (window.CP.shouldStopExecution(0)) break;
+    carousel(carousels[i]);
+  }window.CP.exitedLoop(0);
+});
+
+function carousel(root) {
+  var
+  figure = root.querySelector('figure'),
+  nav = root.querySelector('nav'),
+  images = figure.children,
+  n = images.length,
+  gap = root.dataset.gap || 0,
+  bfc = ('bfc' in root.dataset),
+
+  theta = 2 * Math.PI / n,
+  currImage = 0;
+
+
+  setupCarousel(n, parseFloat(getComputedStyle(images[0]).width));
+  window.addEventListener('resize', () => {
+    setupCarousel(n, parseFloat(getComputedStyle(images[0]).width));
+  });
+
+  setupNavigation();
+
+  function setupCarousel(n, s) {
+    var
+    apothem = s / (2 * Math.tan(Math.PI / n));
+
+
+    figure.style.transformOrigin = `50% 50% ${-apothem}px`;
+
+    for (var i = 0; i < n; i++) {if (window.CP.shouldStopExecution(1)) break;
+      images[i].style.padding = `${gap}px`;}window.CP.exitedLoop(1);
+    for (i = 1; i < n; i++) {if (window.CP.shouldStopExecution(2)) break;
+      images[i].style.transformOrigin = `50% 50% ${-apothem}px`;
+      images[i].style.transform = `rotateY(${i * theta}rad)`;
+    }window.CP.exitedLoop(2);
+    if (bfc) {
+      for (i = 0; i < n; i++) {if (window.CP.shouldStopExecution(4)) break;if (window.CP.shouldStopExecution(3)) break;
+        images[i].style.backfaceVisibility = 'hidden';}window.CP.exitedLoop(4);window.CP.exitedLoop(3);}
+
+    rotateCarousel(currImage);
+  }
+
+  function setupNavigation() {
+    nav.addEventListener('click', onClick, true);
+
+    function onClick(e) {
+      e.stopPropagation();
+
+      var t = e.target;
+      if (t.tagName.toUpperCase() != 'BUTTON')
+      return;
+
+      if (t.classList.contains('next')) {
+        currImage++;
+      } else
+      {
+        currImage--;
+      }
+
+      rotateCarousel(currImage);
+    }
+
+  }
+
+  function rotateCarousel(imageIndex) {
+    figure.style.transform = `rotateY(${imageIndex * -theta}rad)`;
+  }
+
+}
+//# sourceURL=pen.js
+    </script>
+
+  
+
+  <script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeRefreshCSS-4793b73c6332f7f14a9b6bba5d5e62748e9d1bd0b5c52d7af6376f3d1c625d7e.js"></script>
+</body>
+
+</html>
+ 

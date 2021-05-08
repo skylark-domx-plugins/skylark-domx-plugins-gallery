@@ -2,7 +2,7 @@ define([
 	"skylark-langx/skylark",
 	"skylark-langx/langx",
 	"skylark-domx-noder",
-	"skylark-domx-plugins"
+	"skylark-domx-plugins-base"
 ], function (skylark,langx,noder,plugins) {
 	var registry = {
 		views: [],
