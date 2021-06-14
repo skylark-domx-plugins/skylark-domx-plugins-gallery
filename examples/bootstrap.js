@@ -202,8 +202,13 @@ requirejs.config({
             main: 'main'
          },
          {
-           name : "skylark-domx-scrolls",
-           location : "../node_modules/skylark-domx-scrolls/dist/uncompressed/skylark-domx-scrolls",
+           name : "skylark-domx-plugins-base",
+           location : "../node_modules/skylark-domx-plugins-base/dist/uncompressed/skylark-domx-plugins-base",
+            main: 'main'
+         },
+         {
+           name : "skylark-domx-plugins-scrolls",
+           location : "../node_modules/skylark-domx-plugins-scrolls/dist/uncompressed/skylark-domx-plugins-scrolls",
             main: 'main'
          },
          {

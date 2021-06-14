@@ -15,8 +15,13 @@ define([
       this.playerVars = playerVars;
       this.clickToPlay = clickToPlay;
       this.element = document.createElement('div');
+      this.listeners = {}
     },
 
+    on: function (type, func) {
+      this.listeners[type] = func
+      return this
+    },
     canPlayType: function () {
       return true;
     },
