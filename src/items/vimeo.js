@@ -135,7 +135,7 @@ define([
         this.player.api('pause');
       } else if (this.playStatus) {
         delete this.playOnReady;
-        this.listeners.pause()
+        this.emit("pause");
         delete this.playStatus;
       }
     }

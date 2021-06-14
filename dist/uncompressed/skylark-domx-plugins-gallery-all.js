@@ -19370,7 +19370,7 @@ define('skylark-domx-plugins-gallery/items/vimeo',[
         this.player.api('pause');
       } else if (this.playStatus) {
         delete this.playOnReady;
-        this.listeners.pause()
+        this.emit("pause");
         delete this.playStatus;
       }
     }
@@ -19584,7 +19584,7 @@ define('skylark-domx-plugins-gallery/items/youtube',[
         this.player.pauseVideo()
       } else if (this.playStatus) {
         delete this.playOnReady
-        this.listeners.pause()
+        this.emit("pause");
         delete this.playStatus
       }
     }

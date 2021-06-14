@@ -148,7 +148,7 @@ define([
         this.player.pauseVideo()
       } else if (this.playStatus) {
         delete this.playOnReady
-        this.listeners.pause()
+        this.emit("pause");
         delete this.playStatus
       }
     }
