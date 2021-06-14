@@ -16,16 +16,10 @@ define([
       this.playerId = playerId
       this.clickToPlay = clickToPlay
       this.element = document.createElement('div')
-      this.listeners = {}
     },
 
     canPlayType: function () {
       return true
-    },
-
-    on: function (type, func) {
-      this.listeners[type] = func
-      return this
     },
 
     loadAPI: function () {
@@ -81,13 +75,13 @@ define([
 
     onPlaying: function () {
       if (this.playStatus < 2) {
-        this.listeners.playing()
+        this.emit("playing");
         this.playStatus = 2
       }
     },
 
     onPause: function () {
-      this.listeners.pause()
+      this.emit("pause");
       delete this.playStatus
     },
 
@@ -104,7 +98,7 @@ define([
     play: function () {
       var that = this
       if (!this.playStatus) {
-        this.listeners.play()
+        this.emit("play");
         this.playStatus = 1
       }
       if (this.ready) {

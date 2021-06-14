@@ -15,13 +15,8 @@ define([
       this.playerVars = playerVars;
       this.clickToPlay = clickToPlay;
       this.element = document.createElement('div');
-      this.listeners = {}
     },
 
-    on: function (type, func) {
-      this.listeners[type] = func
-      return this
-    },
     canPlayType: function () {
       return true;
     },
@@ -62,13 +57,15 @@ define([
 
     onPlaying: function () {
       if (this.playStatus < 2) {
-        this.listeners.playing();
+        this.emit("playing");
         this.playStatus = 2;
       }
     },
 
     onPause: function () {
-      Gallery.prototype.setTimeout.call(this, this.checkSeek, null, 2000)
+      langx.defer(()=>{
+        this.checkSeek();
+      },2000)
     },
 
     checkSeek: function () {
@@ -77,7 +74,7 @@ define([
         this.stateChange === YT.PlayerState.ENDED
       ) {
         // check if current state change is actually paused
-        this.listeners.pause()
+        this.emit("pause");
         delete this.playStatus
       }
     },
@@ -104,7 +101,7 @@ define([
     play: function () {
       var that = this
       if (!this.playStatus) {
-        this.listeners.play();
+        this.emit("play");
         this.playStatus = 1;
       }
       if (this.ready) {

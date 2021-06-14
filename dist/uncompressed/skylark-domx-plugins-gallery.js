@@ -664,16 +664,10 @@ define('skylark-domx-plugins-gallery/items/vimeo',[
       this.playerId = playerId
       this.clickToPlay = clickToPlay
       this.element = document.createElement('div')
-      this.listeners = {}
     },
 
     canPlayType: function () {
       return true
-    },
-
-    on: function (type, func) {
-      this.listeners[type] = func
-      return this
     },
 
     loadAPI: function () {
@@ -729,13 +723,13 @@ define('skylark-domx-plugins-gallery/items/vimeo',[
 
     onPlaying: function () {
       if (this.playStatus < 2) {
-        this.listeners.playing()
+        this.emit("playing");
         this.playStatus = 2
       }
     },
 
     onPause: function () {
-      this.listeners.pause()
+      this.emit("pause");
       delete this.playStatus
     },
 
@@ -752,7 +746,7 @@ define('skylark-domx-plugins-gallery/items/vimeo',[
     play: function () {
       var that = this
       if (!this.playStatus) {
-        this.listeners.play()
+        this.emit("play");
         this.playStatus = 1
       }
       if (this.ready) {
@@ -870,13 +864,8 @@ define('skylark-domx-plugins-gallery/items/youtube',[
       this.playerVars = playerVars;
       this.clickToPlay = clickToPlay;
       this.element = document.createElement('div');
-      this.listeners = {}
     },
 
-    on: function (type, func) {
-      this.listeners[type] = func
-      return this
-    },
     canPlayType: function () {
       return true;
     },
@@ -917,13 +906,15 @@ define('skylark-domx-plugins-gallery/items/youtube',[
 
     onPlaying: function () {
       if (this.playStatus < 2) {
-        this.listeners.playing();
+        this.emit("playing");
         this.playStatus = 2;
       }
     },
 
     onPause: function () {
-      Gallery.prototype.setTimeout.call(this, this.checkSeek, null, 2000)
+      langx.defer(()=>{
+        this.checkSeek();
+      },2000)
     },
 
     checkSeek: function () {
@@ -932,7 +923,7 @@ define('skylark-domx-plugins-gallery/items/youtube',[
         this.stateChange === YT.PlayerState.ENDED
       ) {
         // check if current state change is actually paused
-        this.listeners.pause()
+        this.emit("pause");
         delete this.playStatus
       }
     },
@@ -959,7 +950,7 @@ define('skylark-domx-plugins-gallery/items/youtube',[
     play: function () {
       var that = this
       if (!this.playStatus) {
-        this.listeners.play();
+        this.emit("play");
         this.playStatus = 1;
       }
       if (this.ready) {
