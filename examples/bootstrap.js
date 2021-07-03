@@ -207,6 +207,11 @@ requirejs.config({
             main: 'main'
          },
          {
+           name : "skylark-domx-plugins-embeds",
+           location : "../node_modules/skylark-domx-plugins-embeds/dist/uncompressed/skylark-domx-plugins-embeds",
+            main: 'main'
+         },
+         {
            name : "skylark-domx-plugins-scrolls",
            location : "../node_modules/skylark-domx-plugins-scrolls/dist/uncompressed/skylark-domx-plugins-scrolls",
             main: 'main'
@@ -232,7 +237,7 @@ requirejs.config({
             main: 'main'
           },   
           {
-            name: 'skylark-domx-plugins-gallery',
+            name: 'skylark-blueimp-gallery2',
             location : "../src",
             main: 'main'
           }      
@@ -241,7 +246,7 @@ requirejs.config({
 });
  
 require(["skylark-domx-query"], function ($) {
-    require(["skylark-domx-plugins-gallery"], function (Gallery) {
+    require(["skylark-blueimp-gallery2"], function (Gallery) {
         if (window.initPage) {
             window.initPage($,Gallery);
         }

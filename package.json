@@ -1,7 +1,7 @@
 {
-  "name": "skylark-domx-plugins-gallery",
+  "name": "skylark-blueimp-gallery2",
   "version": "0.9.0",
-  "description": "The skylark gallery plugin library.",
+  "description": "The skylark blueimp  gallery plugin library.",
   "main": "-",
   "scripts": {
     "build": "slib build .",
@@ -10,7 +10,7 @@
   "homepage": "www.skylarkjs.org",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/skylark-domx-plugins/skylark-domx-plugins-gallery.git"
+    "url": "git+https://github.com/skylark-integration/skylark-blueimp-gallery2.git"
   },
   "keywords": [
     "gallery",
@@ -23,9 +23,11 @@
   ],
   "author": "Hudaokeji Co.,Ltd",
   "license": "MIT",
-  "bugs": "https://github.com/skylark-domx-plugins/skylark-domx-plugins-gallery/issues",
+  "bugs": "https://github.com/skylark-integration/skylark-blueimp-gallery2/issues",
   "dependencies": {
     "skylark-domx": "git+https://github.com/skylark-domx/skylark-domx.git#master",
+    "skylark-domx-plugins-groups": "git+https://github.com/skylark-domx-plugins/skylark-domx-plugins-groups.git",
+    "skylark-domx-plugins-embeds": "git+https://github.com/skylark-domx-plugins/skylark-domx-plugins-embeds.git",
     "skylark-domx-plugins-base": "git+https://github.com/skylark-domx-plugins/skylark-domx-plugins-base.git#master",
     "skylark-langx": "git+https://github.com/skylark-langx/skylark-langx.git#master"
   },
